@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    Main Template-->
+    <template id="report_employee_details_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+
+                <t t-call="reports.sub_employee_details_template"/>
+
+            </t>
+        </t>
+    </template>
+
+    <!--    Sub Template-->
+    <template id="sub_employee_details_template">
+        <t t-call="web.external_layout">
+
+            <div class="page">
+<!--                t-att tag-->
+                <p t-att="['style', 'background-color:red;']">
+                    Red
+                </p>
+                <p t-att="{'style':'background-color:green;', 'href':'www.google.com'}">
+                    Green
+                </p>
+                <p t-att-style="doc.name == 'Abigail Peterson' and 'background-color:red;' or 'background-color:yellow;'">
+                    Test
+                </p>
+                <a href="www.google.com">Google</a>
+                <a t-att-href="doc.id">Employee</a>
+
+<!--                t-attf tag-->
+<!--                <p t-attf-style="background-color:#{doc.tag_ids.color_2};">-->
+<!--                    This is a dynamic changes...-->
+<!--                </p>-->
+<!--                <p t-attf-style="background-color:{{doc.tag_ids.color_2 if doc.tag_ids.color_2 else 'blue'}};">-->
+<!--                    This is a second dynamic changes...-->
+<!--                </p>-->
+
+                Sub Template
+                <t t-call="reports.sub_dataoutput_template"/>
+                <t t-call="reports.sub_conditional_template"/>
+                <t t-call="reports.sub_looping_template"/>
+            </div>
+
+        </t>
+    </template>
+
+    <!--    Other Templates-->
+    <template id="sub_dataoutput_template">
+
+        <div class="page">
+            This is DataOutPut Template
+            <!--                        t-tags-->
+            <!--            <h1>Hello World</h1>-->
+            <!--            <t t-field="doc.name"/>-->
+            <!--            <t t-set="a" t-value="1230000"/>-->
+            <!--            555555<h1 t-esc="a"/>99999999-->
+            <!--            <h1 t-field="a"/>-->
+            <!--            123<p t-out="doc.name"/>456-->
+            <!--            <h1 t-field="doc.name"/>-->
+            <!--            <h2 t-field="doc.name"/>-->
+            <!--            <p t-field="doc.name"/>-->
+            <!--            <span t-esc="doc.name"/>-->
+            <!--            <h1 t-esc="doc.name"/>-->
+            <!--            <h2 t-esc="doc.name"/>-->
+            <!--            <p t-esc="doc.name"/>-->
+            <!--            <span t-esc="doc.name"/>-->
+        </div>
+
+    </template>
+
+    <template id="sub_conditional_template">
+
+        <div class="page">
+            This is Conditional Template
+            <!--                        conditional statement-->
+            <!--            <t t-if="doc.name == 'oddo admin'">-->
+            <!--                <p>Yes this is-->
+            <!--                    <span t-esc="doc.name"/>-->
+            <!--                </p>-->
+            <!--            </t>-->
+            <!--            <t t-elif="doc.name == 'odoo mates'">-->
+            <!--                <p>This is YT channel-->
+            <!--                    <span t-field="doc.name"/>-->
+            <!--                </p>-->
+            <!--            </t>-->
+            <!--            <t t-else="">-->
+            <!--                <p>This is not oddo admin</p>-->
+            <!--                <p>this is-->
+            <!--                    <span t-field="doc.name"/>-->
+            <!--                </p>-->
+            <!--            </t>-->
+        </div>
+
+    </template>
+
+    <template id="sub_looping_template">
+
+        <div class="page">
+            This is Looping Template
+            <!--                        looping statement-->
+            <!--            <t t-foreach="[1,2,3,4,5,6,7,8,9,10]" t-as="rct">-->
+            <!--                <h1 t-esc="rct"/>-->
+            <!--            </t>-->
+        </div>
+
+    </template>
+
+<!--    paper format-->
+    <record id="employee_details_template_paperformat" model="report.paperformat">
+        <field name="name">Patient Details Paper Format</field>
+<!--            <field name="default" eval="True"/>-->
+        <field name="format">A4</field><field name="orientation">Landscape</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+<!--        <field name="header_line" eval="False"/>-->
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="report_employee_details_action" model="ir.actions.report">
+        <field name="name">Employee Details</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">reports.report_employee_details_template</field>
+        <field name="report_file">reports.report_employee_details_template</field>
+        <field name="print_report_name">'Employee-Details'</field>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="reports.employee_details_template_paperformat"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="contact_template_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+
+                <div class="page">
+                    <t t-foreach="docs" t-as="doc">
+
+                        <div class="col-md-6">
+
+                            <table style="width: 240pt; height: 150pt; border: 1px solid blue; border-collapse: separate; border-radius: 8pt; margin: 5pt;">
+                                <tr>
+                                    <td>
+
+                                        <div t-field="doc.image_1920"
+                                             t-options="{'widget':'image','img_style':'width:50px;height:50px;','width':50,'height':50}"/>
+
+                                    </td>
+                                    <td>
+                                        <table style="border: 0px solid white; margin: 5pt;">
+                                            <tr>
+                                                <th>
+                                                    <t t-esc="doc.name"/>
+                                                </th>
+                                                <th>
+                                                    <t t-esc="doc.phone"/>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </t>
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+
+    <record id="contact_template_report_action" model="ir.actions.report">
+        <field name="name">Contact Infos</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">reports.contact_template_report</field>
+        <field name="report_file">reports.contact_template_report</field>
+        <field name="print_report_name">'Contact Infos'</field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
