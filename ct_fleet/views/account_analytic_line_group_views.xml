@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="action_account_analytic_line_inherit_group" model="ir.actions.act_window">
+            <field name="inherit_id" ref="analytic.account_analytic_line_action_entries"/>
+            <field name="context">{'search_default_group_by_analytic_account' : 1}</field>
+        </record>
+    </data>
+</odoo>

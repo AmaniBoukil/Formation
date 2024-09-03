@@ -1,0 +1,159 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--    <template id="report_patient_appointments_template">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-foreach="docs" t-as="doc">-->
+<!--                &lt;!&ndash; Use the standard external layout, which expects a 'company' variable &ndash;&gt;-->
+<!--                <t t-call="web.external_layout_standard">-->
+<!--                    &lt;!&ndash; Header Section &ndash;&gt;-->
+<!--                    <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-3 mb4">-->
+<!--                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>-->
+<!--                            </div>-->
+<!--                            <div class="col-9 text-end" style="margin-top:22px;" t-field="company.report_header" name="moto"/>-->
+<!--                        </div>-->
+<!--                        <div t-if="company.logo or company.report_header" class="row zero_min_height">-->
+<!--                            <div class="col-12">-->
+<!--                                <div style="border-bottom: 1px solid black;"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-6" name="company_address">-->
+<!--                                <ul class="list-unstyled">-->
+<!--                                    <li t-if="company.is_company_details_empty">-->
+<!--                                        <t t-esc="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>-->
+<!--                                    </li>-->
+<!--                                    <li t-else="">-->
+<!--                                        <t t-esc="company.company_details"/>-->
+<!--                                    </li>-->
+<!--                                    <li t-if="forced_vat">-->
+<!--                                        <t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-esc="forced_vat"/>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Body Section &ndash;&gt;-->
+<!--                    <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">-->
+<!--                        <div class="pt-5">-->
+<!--                            <t t-call="web.address_layout"/>-->
+<!--                        </div>-->
+<!--                        <t t-out="0"/>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Footer Section &ndash;&gt;-->
+<!--                    <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">-->
+<!--                        <div class="text-center" style="border-top: 1px solid black;">-->
+<!--                            <ul class="list-inline mb4">-->
+<!--                                <div t-field="company.report_footer"/>-->
+<!--                            </ul>-->
+<!--                            <div t-if="report_type == 'pdf'" class="text-muted">-->
+<!--                                Page: <span class="page"/> / <span class="topage"/>-->
+<!--                            </div>-->
+<!--                            <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">-->
+<!--                                <span t-field="o.name"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Main Content Section &ndash;&gt;-->
+<!--                    <div class="page">-->
+<!--                        <t t-foreach="doc.pharmacy_lines_ids" t-as="rct">-->
+<!--                            <h1 t-esc="rct.product_id.name"/>-->
+<!--                            Sequence of foreach loop: <span t-esc="rct_index"/>-->
+<!--                            Is this first index? <span t-esc="rct_first"/>-->
+<!--                            Is this last index? <span t-esc="rct_last"/>-->
+<!--                            <p t-esc="rct"/>-->
+<!--                            <p t-esc="rct_value"/>-->
+<!--                            <p t-esc="rct_parity"/>-->
+<!--                            <p t-esc="rct_even"/>-->
+<!--                            <p t-esc="rct_odd"/>-->
+<!--                        </t>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+
+<!--    &lt;!&ndash; Report Action &ndash;&gt;-->
+<!--    <record id="report_patients_appointments_action" model="ir.actions.report">-->
+<!--        <field name="name">Patients Appointments</field>-->
+<!--        <field name="model">hospital.appointement</field>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--        <field name="report_name">om_hospital.report_patient_appointments_template</field>-->
+<!--        <field name="report_file">om_hospital.report_patient_appointments_template</field>-->
+<!--        <field name="print_report_name">'Patients-Appointments'</field>-->
+<!--        <field name="binding_model_id" ref="model_hospital_appointement"/>-->
+<!--        <field name="binding_type">report</field>-->
+<!--    </record>-->
+<!--</odoo>-->
+
+
+<!-- Example QWeb Report Template -->
+<odoo>
+    <template id="report_patient_appointments_template">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="product">
+
+                <div class="page">
+
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-3">
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                            </div>
+                            <div class="col-2 offset-2 text-center">
+                                <p>Headerrrrrr</p>
+<!--                                <span t-esc="company.name"/>-->
+                            </div>
+                            <div class="col-2 offset-3 text-end">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <span class="page"/>
+                                        <p>Headerrrrrr</p>
+                                    </li>
+                                    <li class="list-inline-item">/</li>
+                                    <li class="list-inline-item">
+                                        <span class="topage"/>
+                                        <p>Headerrrrrr</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>f1000ff</p>
+                        <h2>
+                            <t t-esc="product.patient_id.name"/>
+                        </h2>
+                    </div>
+
+                    <div class="footer">
+                        <p>Page
+                            <span class="page"/>
+                            of
+                            <span class="topage"/>
+                        </p>
+                    </div>
+
+                </div>
+
+
+            </t>
+        </t>
+    </template>
+
+    <record id="report_patients_appointments_action" model="ir.actions.report">
+        <field name="name">Patients Appointments</field>
+        <field name="model">hospital.appointement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">om_hospital.report_patient_appointments_template</field>
+        <field name="report_file">om_hospital.report_patient_appointments_template</field>
+        <field name="print_report_name">'Patients-Appointments'</field>
+        <field name="binding_model_id" ref="model_hospital_appointement"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

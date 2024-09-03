@@ -1,0 +1,41 @@
+{
+    'name': 'Hospital Management' ,
+    'version': '1.0.0',
+    'category': 'Hospital',
+    'author': 'Amani',
+    'summary': 'Hospital management system',
+    'description': """Hospital management system""",
+    'depends': [],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/patient_tag_data.xml',
+        'data/patient.tag.csv',
+        'data/sequence_data.xml',
+        'wizard/cancel_appointment_view.xml',
+        'views/menu.xml',
+        'views/patient_view.xml',
+        'views/female_patient_view.xml',
+        'views/appointement_view.xml',
+        'views/patient_tag_view.xml',
+        'views/odoo_playground_view.xml',
+        'views/res_config_settings_view.xml',
+        # 'report/patient_details_template.xml',
+        # 'report/report.xml',
+        'report/test_template_report.xml',
+        'report/test_report.xml',
+        'report/inherit_template.xml',
+        'report/contact_card.xml',
+        'report/custom_header_footer.xml',
+    ],
+
+    'depends': ['mail', 'product', 'base'], # installation de modules / independences
+    'demo': [],
+
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+    'sequence': -100,
+    'license':'LGPL-3',
+
+     'assets': {},
+}

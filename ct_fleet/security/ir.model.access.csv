@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.fleet.vehicle,access_fleet_vehicle,ct_fleet.model_fleet_vehicle,base.group_user,1,1,1,1
+access.generation.analytic.entries.wizard,access_generation_analytic_entries_wizard,ct_fleet.model_generation_analytic_entries_wizard,base.group_user,1,1,1,1

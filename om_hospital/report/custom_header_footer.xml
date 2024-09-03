@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="weblearners_layout">
+
+<!--        setting variables-->
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+<!--        Header-->
+        <div class="header">
+            <div class="text-center" style="report_header_style; border-bottom: 1px solid black;">
+                <div class="row">
+                    <div class="col-3 mb4">
+                        <img alt="img" t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                             style="max-height:90px;"/>
+                    </div>
+                    <div class="col-3">
+<!--                        Page number-->
+                        <p>Page <span class="page"/> / <span class="topage"/></p>
+<!--                        TimeDate-->
+                        <p t-out="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y %H:%M')"/>
+<!--                        <p>Hello your custom content also you can print.</p>-->
+                    </div>
+                    <div class="col-6" style="text-align: right;">
+                        <span t-if="company.company_details" t-field="company.company_details"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--        Content-->
+        <div class="article o_report_layout_standard">
+            <t t-out="0"/>
+        </div>
+
+<!--        Footer-->
+        <div class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+<!--                <div class="row text-center" style="border-top: 1px solid black;">-->
+<!--                <div class="col-4">-->
+<!--                    <span t-field="company.email"/>-->
+<!--                </div>-->
+<!--                <div class="col-4">-->
+<!--                    <span t-field="company.phone"/> <br/>-->
+<!--                    <span t-field="company.mobile"/>-->
+<!--                </div>-->
+<!--                <div class="col-4">-->
+<!--                    <span t-field="company.website"/>-->
+<!--                </div>-->
+                <ul class="list-inline mb4">
+                    <li>
+                        <span t-field="company.report_footer"/>
+                    </li>
+                </ul>
+
+                <br/>
+                <!--        Page number-->
+<!--                <div class="row text-center">-->
+<!--                    <div class="page"/>-->
+<!--                </div>-->
+                <p>Page <span class="page"/> / <span class="topage"/></p>
+
+            </div>
+        </div>
+
+    </template>
+
+    <template id="report_custom_patient_details_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="om_hospital.weblearners_layout">
+<!--                    <h1 t-field="doc.name"/>-->
+<!--                    <t t-foreach="range(0,50)" t-as="a">-->
+<!--                        <p t-out="a"/>-->
+<!--                    </t>-->
+
+<!--                    Create Report with Boostrap-->
+                    <div class="oe_structure"/>
+
+                    <div class="col-12 text-center">
+                        <img alt="img" t-if="doc.image" t-att-src="image_data_uri(doc.image)"
+                             style="max-height:150px;"/>
+                        <h2 t-field="doc.name" style="border-bottom:1px solid black;"/>
+                    </div>
+
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-3 text-center">
+                            <b>Patient Age : </b>
+                            <span t-field="doc.age"/>
+<!--                            <span t-field="doc.age"/>-->
+                        </div>
+                        <div class="col-9" style="text-align: right;">
+                            <b>Patient Date Of Birth : </b>
+                            <span t-field="doc.date_of_birth"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-4">
+                            <strong>Patient Reference : </strong>
+                            <p t-field="doc.ref"/>
+                        </div>
+                        <div class="col-4">
+                            <strong>Patient Gender : </strong>
+<!--                            <field name="doc.gender"/>-->
+                            <p t-field="doc.gender"/>
+                        </div>
+                        <div class="col-4">
+                            <strong>Patient Appointment Count : </strong>
+                            <p t-field="doc.appointment_count"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-4">
+                            <strong>Patient Reference : </strong>
+                            <p t-field="doc.ref"/>
+                        </div>
+                        <div class="col-4">
+                            <strong>Patient Status : </strong>
+                            <p t-out="doc.marital_status if doc.marital_status else 'Not Available'"/>
+                        </div>
+                        <div class="col-4">
+                            <strong>Patient Partner Name : </strong>
+                            <p t-out="doc.partner_name if doc.partner_name else 'Not Available'"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_custom_patients_details_action" model="ir.actions.report">
+        <field name="name">Custom Patients Details</field>
+        <field name="model">hospital.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">om_hospital.report_custom_patient_details_template</field>
+        <field name="report_file">om_hospital.report_custom_patient_details_template</field>
+        <field name="print_report_name">'Custom-Patients-Details'</field>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.visitor.table,access_visitor_table,odoo_pointage_camera_de_surveillance.model_visitor_table,base.group_user,1,1,1,1
+access.camera.table,access_camera_table,odoo_pointage_camera_de_surveillance.model_camera_table,base.group_user,1,1,1,1
+access.cameras.lines,access_cameras_lines,odoo_pointage_camera_de_surveillance.model_cameras_lines,base.group_user,1,1,1,1

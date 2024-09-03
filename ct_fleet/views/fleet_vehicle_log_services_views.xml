@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vehicle_log_services_tree_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.services.tree.generation</field>
+        <field name="model">fleet.vehicle.log.services</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <header>
+                    <button name="open_wizard" string="Générer écriture analytique" type="object" class="btn-primary"/>
+                </header>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

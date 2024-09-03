@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_patient_appointments_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+
+                    <div class="page">
+
+<!--                        looping statement and predefined variables-->
+<!--                        <t t-foreach="doc.pharmacy_lines_ids" t-as="rct">-->
+
+<!--                            <h1 t-esc="rct.product_id.name"/>-->
+<!--                            Sequence of foreach loop: <span t-esc="rct_index"/>-->
+<!--                            Is this first index? <span t-esc="rct_first"/>-->
+<!--                            Is this last index? <span t-esc="rct_last"/>-->
+<!--                            <p t-esc="rct"/>-->
+<!--                            <p t-esc="rct_value"/>-->
+<!--                            <p t-esc="rct_parity"/>-->
+<!--                            <p t-esc="rct_even"/>-->
+<!--                            <p t-esc="rct_odd"/>-->
+
+<!--                        </t>-->
+
+<!--                        variables-->
+                        <t t-set="a" t-value="1234"/>
+                        <p t-esc="a"/>
+
+                        <t t-set="a" t-value="'WebLearners'"/>
+                        <p t-esc="a"/>
+
+                        <t t-set="a" t-value="doc.patient_id"/>
+                        <p t-esc="a"/>
+
+                        <t t-set="abc" t-value="0"/>
+                        <t t-foreach="doc.pharmacy_lines_ids" t-as="rct">
+                            <t t-set="abc" t-value="abc+1"/>
+                            <p t-esc="abc"/>
+                        </t>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="report_patients_appointments_action" model="ir.actions.report">
+        <field name="name">Patients Appointments</field>
+        <field name="model">hospital.appointement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">om_hospital.report_patient_appointments_template</field>
+        <field name="report_file">om_hospital.report_patient_appointments_template</field>
+        <field name="print_report_name">'Patients-Appointments'</field>
+        <field name="binding_model_id" ref="model_hospital_appointement"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

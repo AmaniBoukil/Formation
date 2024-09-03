@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="analytic_plan_vehicle" model="account.analytic.plan">
+            <field name="name">Vehicle</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_vehicle_form_inherit" model="ir.ui.view">
+            <field name="name">fleet.vehicle.account</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='location']" position="after">
+                    <field name="analytic_account_id"/>
+                    <button name="create_analytic_account" string="Create Analytic Account"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('analytic_account_id', '!=', False)]}"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

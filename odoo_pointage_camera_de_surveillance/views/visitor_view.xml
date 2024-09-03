@@ -1,0 +1,67 @@
+<odoo>
+
+    <!-- Form view -->
+    <record id="view_visitor_form" model="ir.ui.view">
+        <field name="name">visitor.table.form</field>
+        <field name="model">visitor.table</field>
+        <field name="arch" type="xml">
+            <form string="Visitor">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <field name="check_in"/>
+                        <field name="check_out"/>
+                        <field name="camera_id"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </group>
+
+                    <notebook>
+                    <page string="Cameras" name="cameras">
+                        <field name="cameras_lines_ids">
+                            <tree>
+                                <field name="cam_id" readonly="1"/>
+                                <field name="check_in" readonly="1"/>
+                                <field name="check_out" readonly="1"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="cam_id" readonly="1"/>
+                                    <field name="check_in" readonly="1"/>
+                                    <field name="check_out" readonly="1"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree view -->
+    <record id="view_visitor_tree" model="ir.ui.view">
+        <field name="name">visitor.table.tree</field>
+        <field name="model">visitor.table</field>
+        <field name="arch" type="xml">
+            <tree string="Visitor">
+                <field name="image" widget="image" class="oe_avatar"
+                       options="{'size': [50, 50]}"/>
+                <field name="name"/>
+                <field name="check_in"/>
+                <field name="check_out"/>
+                <field name="camera_id"/>
+                <field name="email"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_visitor" model="ir.actions.act_window">
+        <field name="name">Visitors</field>
+        <field name="res_model">visitor.table</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

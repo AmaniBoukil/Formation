@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template inherit_id="om_hospital.sub_patient_details_template" id="sub_patient_details_template_extend">
+        <xpath expr="//div[hasclass('page')]" position="replace">
+            <div class="page">
+                <h1>
+                    I am extending my existing template.
+                </h1>
+            </div>
+        </xpath>
+    </template>
+</odoo>
